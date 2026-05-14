@@ -171,12 +171,17 @@ export class PricingController {
 
             // Fetch all pricing with relations
             const prices = await roomPriceRepository.find({
-            order: {
-                created_at: "DESC",
-            },
+                where: {
+                    hotel_id: 'AJM',
+                },
+                order: {
+                    created_at: "DESC",
+                },
             });
 
             // console.log("prices value ;;;;;", prices)
+
+            // return res.send(prices);
             // Check for success message from redirect
             const success = req.query.success as string;
 

@@ -33,7 +33,7 @@ const upload = multer({
     key: (_req: Request, file: Express.Multer.File, cb: MulterS3Callback) => {
       const ext = path.extname(file.originalname);
       const fileName = crypto.randomBytes(16).toString("hex");
-      cb(null, `hotels/${Date.now()}-${fileName}${ext}`);
+      cb(null, `hotels/taj_park_hotel/${Date.now()}-${fileName}${ext}`);
     },
   }),
 });
@@ -56,7 +56,7 @@ const upload2 = multer({
 // router.get('/', HotelController.getHotels);
 router.get("/login", UserController.showLoginPage);
 router.post("/login", UserController.postLogin);
-router.get("/dashboard", isAdmin , UserController.getDashboard);
+router.get("/dashboard",  UserController.getDashboard);
 router.get("/city", isAdmin, DashboardController.showCity);
 router.get("/city/add", isAdmin, DashboardController.addCity);
 router.post("/city/add", isAdmin, DashboardController.saveCity);
@@ -148,7 +148,7 @@ router.get("/update-rooms-left",DashboardController.update_rooms_left);
 
 router.get("/pricing/add", isAdmin, PricingController.addPricing);
 router.post("/pricing/create", isAdmin, PricingController.createRoomPrice);
-router.get("/pricing", isAdmin, PricingController.getPricingList);
+router.get("/pricing",  PricingController.getPricingList);
 router.get("/pricing/:id/edit", isAdmin, PricingController.editPricingList);
 router.post("/pricing/update/:id", isAdmin, PricingController.updateRoomPrice);
 router.get("/rooms/options/:hotel_id", isAdmin, PricingController.getRoomOptionsByHotel);

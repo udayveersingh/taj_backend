@@ -377,6 +377,7 @@ export class DashboardController {
 
       // ✅ Fetch all rooms with hotel relation, ordered by name
       const rooms = await roomRepo.find({
+        where: { hotel: { id: 32 } }, // ✅ Only rooms for hotel with ID 32
         relations: ["hotel", "room_type"],
         order: { name: "ASC" },
       });
@@ -2120,7 +2121,7 @@ export class DashboardController {
         base_meal_plan,
         website_description,
         room_option_id,
-        rooms_left
+        rooms_left: rooms_left === "" ? null : Number(rooms_left)
       };
 
       // Handle file uploads
@@ -2208,6 +2209,7 @@ export class DashboardController {
         .createQueryBuilder("occupancy")
         .leftJoinAndSelect("occupancy.room", "room")
         .leftJoinAndSelect("room.hotel", "hotel") 
+        .where("hotel.id = :hotelId", { hotelId: 32 })
         .orderBy("occupancy.id", "DESC")
         .getMany();
 

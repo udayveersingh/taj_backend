@@ -82,15 +82,20 @@ export class UserController {
     // ✅ Render dashboard after login
   static async getDashboard(req: Request, res: Response) {
     try {
+      const hotelId = 32;
       const hotelRepo = AppDataSource.getRepository(Hotel);
       const roomRepo = AppDataSource.getRepository(Room);
       const occupancyRepo = AppDataSource.getRepository(RoomOccupancy);
       const dealRepo = AppDataSource.getRepository(Deal);
       const bookingRepo = AppDataSource.getRepository(Booking2);
 
-      const totalHotels = await hotelRepo.count();
-      const totalRooms = await roomRepo.count();
-      const totalRoomOccupancy = await occupancyRepo.count();
+      const totalHotels = await hotelRepo.count({ where: { id: hotelId }});
+      const totalRooms = await roomRepo.count({where: { hotel_id: hotelId }});
+      const totalRoomOccupancy = await occupancyRepo
+                                    .createQueryBuilder("occupancy")
+                                    .leftJoin("occupancy.room", "room")
+                                    .where("room.hotel_id = :hotelId", { hotelId: 32 })
+                                    .getCount();
       const totaldeals = await dealRepo.count();
       const totalbookings = await bookingRepo.count();
 
