@@ -144,18 +144,29 @@ app.use("/api", apiRoutes);
 app.use("/portal", portalRoutes);
 
 // ✅ For local development
-if (process.env.NODE_ENV !== "production") {
-  initializeDataSource()
-    .then(() => {
-      app.listen(PORT, () => {
-        console.log(`🚀 Server running on port ${PORT}`);
-      });
-    })
-    .catch((err) => {
-      console.error("❌ Database connection failed:", err);
-      process.exit(1);
+// if (process.env.NODE_ENV !== "production") {
+//   initializeDataSource()
+//     .then(() => {
+//       app.listen(PORT, () => {
+//         console.log(`🚀 Server running on port ${PORT}`);
+//       });
+//     })
+//     .catch((err) => {
+//       console.error("❌ Database connection failed:", err);
+//       process.exit(1);
+//     });
+// }
+
+initializeDataSource()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
     });
-}
+  })
+  .catch((err) => {
+    console.error("❌ Database connection failed:", err);
+    process.exit(1);
+  });
 
 // ✅ Export for Vercel serverless
 export default app;
