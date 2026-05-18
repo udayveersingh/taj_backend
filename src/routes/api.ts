@@ -23,6 +23,8 @@ router.get("/get-hotels-rooms/:id", ApiController.get_hotel_rooms)
 
 router.post("/room-search", TajApiController.search);
 router.get("/occupancy/:room_option_id", TajApiController.search_room);
+router.get("/taj-deals", TajApiController.taj_deals);
+router.get("/taj-deals/:id", TajApiController.taj_deal_detail);
 
 
 // Export code 

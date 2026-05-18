@@ -172,7 +172,7 @@ export class PricingController {
             // Fetch all pricing with relations
             const prices = await roomPriceRepository.find({
                 where: {
-                    hotel_id: 'AJM',
+                    hotel_id: 'TPH',
                 },
                 order: {
                     created_at: "DESC",
