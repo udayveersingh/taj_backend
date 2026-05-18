@@ -4,6 +4,7 @@ import PostgresExportController from '../controllers/PostgresExportController';
 import { PricingController } from '../controllers/PricingController';
 import { ApiController } from '../controllers/ApiController';
 import { ContactUsController } from '../controllers/ContactUsController';
+import { TajApiController } from '../controllers/TajApiController';
 
 console.log("this file is running ;;;;;;;;;;s")
 const router = express.Router();
@@ -19,6 +20,9 @@ router.post("/get-hotels/:id/bookings", HotelController.createBooking);
 router.get("/hotel-extras", HotelController.getHotelExtras);
 router.get("/get-deals-rooms/:id", ApiController.get_deals_rooms)
 router.get("/get-hotels-rooms/:id", ApiController.get_hotel_rooms)
+
+router.post("/room-search", TajApiController.search);
+router.get("/occupancy/:room_option_id", TajApiController.search_room);
 
 
 // Export code 
